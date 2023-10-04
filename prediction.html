@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Failure DSS|Prediction</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="pb-lg-5">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid position-relative">
+            <a class="navbar-brand ms-2" href="prediction.html">Heart Failure Decision Support System</a>
+            <div class="position-absolute end-0" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item me-2">
+                        <a class="nav-link active me-5" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <!-- <li class="nav-item me-2">
+                        <a class="nav-link" href="#prediction.html">Prediction</a>
+                    </li>
+                    <li class="nav-item me-5">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section class="container ">
+        <div class="row position-relative">
+            <br>
+            <!--Form-->
+            <div class="col-md-1"></div>
+            <div class="col-md-10  ">
+                <h2 class="d-flex justify-content-center">Prediction Form</h2>
+                <!-- <p>Please fill the details carefully...</p> -->
+                <form action="{{url_for( 'predict')}} " method="POST " class=" p-3 rounded-3 border border-2 border-dark prediction-form-div">
+                    <div class="form-group row form-inline">
+                        <div class="col-sm">
+                            <label for="age ">Age:
+                            <input type="number " class="form-control border border-2 rounded-2 border-dark" id="age " name="age" required>
+                        </label>
+                        </div>
+                        <div class="col-sm">
+                            <label for="sex ">Sex</label>
+                            <select class="form-control border border-2 rounded-2 border-dark" id="sex " name="sex " required>
+							        <option disabled selected value> Select an Option </option>
+							        <option value = "0">Male</option>
+							        <option value = "1">Female</option>
+							    </select>
+                        </div>
+                        <div class="col-sm ">
+                            <label for="cp">Chest Pain Type</label>
+                            <select class="form-control border border-2 rounded-2 border-dark" id="cp" name="cp" required>
+							  <option disabled selected value>  Select an Option  </option>
+							  <option value = "0">Typical Angina</option>
+							  <option value = "1">Atypical Angina</option>
+							  <option value = "2">Non-anginal Pain</option>
+							  <option value = "3">Asymptomatic</option>
+							</select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row form-horizontal">
+
+                        <div class="col-sm">
+                            <label for="trestbps">Resting Blood Pressure in mm Hg</label>
+                            <input type="number" class="form-control border border-2 rounded-2 border-dark" id="trestbps" name="trestbps" required>
+                        </div>
+                        <div class="col-sm ">
+                            <br>
+                            <label for="chol">Serum Cholestoral in mg/dl</label>
+                            <input type="number" class="form-control border border-2 rounded-2 border-dark" id="chol" name="chol" required>
+                        </div>
+                        <div class="col-sm">
+                            <br>
+                            <label for="fbs">Fasting Blood Sugar > 120 mg/dl</label>
+                            <select class="form-control border border-2 rounded-2 border-dark" id="fbs" name="fbs" required>
+							  <option disabled selected value> Select an Option </option>
+							  <option value = "0">False</option>
+							  <option value = "1">True</option>
+							</select>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row ">
+                        <div class="col-sm">
+                            <label for="restecg ">Resting ECG Results </label>
+                            <select class="form-control border border-2 rounded-2 border-dark" id="restecg" name="restecg" required>
+								  <option disabled selected value>  Select an Option  </option>
+								  <option value = "0">Normal</option>
+								  <option value = "1">Having ST-T wave abnormality  </option>
+								  <option value = "2"> Probable or definite left ventricular hypertrophy  </option>
+								</select>
+                        </div>
+                        <div class="col-sm ">
+                            <label for="thalach">Maximum Heart Rate</label>
+                            <input type="number" class="form-control border border-2 rounded-2 border-dark" id="thalach" name="thalach " required>
+                        </div>
+                        <div class="col-sm ">
+                            <label for="exang ">ST Depression Induced</label>
+                            <input type="number " step="any " class="form-control border border-2 rounded-2 border-dark" id="exang " name="exang " required>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row ">
+
+                        <div class="col-sm-4">
+                            <br>
+                            <label for="exang ">Exercise Induced Angina </label>
+                            <select class="form-control border border-2 rounded-2 border-dark" id="oldpeak " name="oldpeak " required>
+								  <option disabled selected value> Select an Option </option>
+								  <option value = "0">No</option>
+								  <option value = "1">Yes</option>
+								</select>
+                        </div>
+                        <div class="col-sm-4">
+                            <label for="slope ">Slope of the Peak Exercise ST Segment </label>
+                            <select class="form-control border border-2 rounded-2 border-dark" id="slope " name="slope " required>
+							  <option disabled selected value> Select an Option </option>
+							  <option value = "0">Upsloping</option>
+							  <option value = "1">Flat</option>
+							  <option value = "2">Downsloping</option>
+							</select>
+                        </div>
+
+
+                    </div>
+
+                    <br>
+                    <div class="form-group d-flex justify-content-center">
+                        <input class="btn btn-primary " type="submit" value="Predict Result">
+                    </div>
+
+                    <!-- Prediction Result
+                        <div id="result ">
+                            <strong style="color:red ">{{result}}</strong>
+                        </div> -->
+                </form>
+            </div>
+        </div>
+        <br><br>
+        <div class="result-div row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6"><canvas id="accuracy-chart"></canvas></div>
+        </div>
+    </section>
+    <script>
+        const ctx = document.getElementById('accuracy-chart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Random Forest', 'Decision Tree', 'Gradient Boosting', 'Green', 'Purple'],
+                datasets: [{
+                    label: '# of Votes',
+                    data: [12, 19, 3, 5, 2],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
